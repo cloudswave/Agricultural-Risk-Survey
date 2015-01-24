@@ -25,7 +25,7 @@ android分支：android端开发分支
 **android安装配置**
 
 1. git clone源码到本地；
-2. 根据情况配置项目文件：
+2. 导入到AppCan IDE中根据情况配置项目文件：
 > 
 >
 
