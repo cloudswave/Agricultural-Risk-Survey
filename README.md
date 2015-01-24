@@ -32,6 +32,7 @@ android分支：android端开发分支
 
 **server端安装配置**
 
+1. [源码部署地址](http://php.xlanlab.com)
 待加
 
 更新记录
