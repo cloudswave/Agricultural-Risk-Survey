@@ -1,0 +1,38 @@
+        <!DOCTYPE HTML>
+        <html>
+        <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>获取当前位置</title>
+        <script type="text/javascript">
+        function cbOpenLocation(opId, dataType, data){
+        }
+        function onChange(lat, log){
+        document.getElementById('longitude').value = log;
+        document.getElementById('latitude').value = lat;
+        document.getElementById('location').innerHTML = "经度:" + log + " ,纬度:" +lat;
+        }
+        window.uexOnload = function(){
+        uexLocation.onChange = onChange;
+        uexLocation.cbOpenLocation = cbOpenLocation;
+        }
+        function locationFun(){
+        uexLocation.openLocation();
+        }
+        </script>
+        </head>
+        <body style="background: white;">
+        <div class="tit">获取当前位置信息：</div>
+        <div class="conbor">
+        <div class="consj">
+        <span>获取当前经纬度：</span>
+        <input class="btn" type="button" value="获取当前经纬度"
+        
+        onclick="locationFun();">
+        <span>当前的经纬度值为：</span>
+        <div id="location"></div>
+        <input type="hidden" id="longitude">
+        <input type="hidden" id="latitude">
+        </div>
+        </div>
+        </body>
+        </html>

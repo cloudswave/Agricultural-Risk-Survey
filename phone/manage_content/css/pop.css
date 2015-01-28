@@ -1,0 +1,36 @@
+.t-btn-oas{
+    background-image:url('myImg/t-btn-oas.png');
+}
+.triangle3 {
+    width: 0px;
+    border-top: 0;
+    border-right: 0.46875em solid transparent;
+    border-bottom: 0.46875em solid rgba(0,0,0,0.6);
+    border-left: 0.46875em solid transparent;
+}
+.c-bla-60{
+    background-color:rgba(0,0,0,0.6);
+}
+.b-wh-50{
+    border-color:rgba(255,255,255,0.5);
+}
+.uinn-10{
+    padding:0 0.3125em; 
+}
+.uinn-16{
+    padding:0.65em 0; 
+}
+.uw-oa6{
+    width:6.25em;
+}
+.uabs-oa{
+    position:absolute;
+    top:0;
+    right:0.625em;
+}
+.umar-l-oa{
+    margin-left:4.4em;
+}
+.umar-t-oap{
+    margin-top:2.75em;
+}

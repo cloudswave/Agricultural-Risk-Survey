@@ -10,16 +10,82 @@
         <link rel="stylesheet" href="css/ui-color.css">
         <link rel="stylesheet" href="css/appcan.icon.css">
         <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="index/css/main.css">
     </head>
     <body class="um-vp bc-bg" ontouchstart>
-
+        <div class="ub ub-ver ub-fv">
+            <div class="uh-oa3 ub-fh ub-img1 oa1 ub" id="record">
+                <div class="ub-fv uw-oa ub ub-ac ub-pc c-blu-218">
+                    <div class="uw-oa2 ulev-oa bc-text-head">
+                        信息录入
+                    </div>
+                </div>
+            </div>
+            <div class="uh-oa3 ub-fh ub-img1 oa2 ub ub-pe"id="manage">
+                <div class="ub-fv uw-oa ub ub-ac ub-pc c-red-d0">
+                    <div class="uw-oa2 ulev-oa bc-text-head">
+                        信息管理
+                    </div>
+                </div>
+            </div>
+            <div class="uh-oa3 ub-fh ub-img1 oa3 ub"id="map">
+                <div class="ub-fv uw-oa ub ub-ac ub-pc c-org-c2">
+                    <div class="uw-oa2 ulev-oa bc-text-head">
+               地图
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="js/appcan.js"></script>
         <script src="js/appcan.control.js"></script>
+        <script src="js/common.js"></script>
     </body>
     <script>
         appcan.ready(function() {
             appcan.initBounce();
+
+            if(!isDefine(getLocVal("create_database"))){//创建数据库
+                openDB(function(){
+                      exeSql(1,"DROP TABLE sp_agro_infos",function(data){
+                        if(data==true)
+                                       $toast("删除表成功",2000);
+                          });
+                                 
+                        var create_table=""+
+                        "CREATE TABLE 'sp_agro_infos' ("+
+                          "'id' integer  primary key  autoincrement  ,"+
+                          "'province' varchar(255)    ,"+
+                          "'city' varchar(255)    ,"+
+                          "'disaster_place' varchar(255)    ,"+
+                          "'longitude' varchar(255)    ,"+
+                          "'latitude' varchar(255)    ,"+
+                         " 'disaster_crop' varchar(255)    ,"+
+                         "'disaster_type' varchar(10)    ,"+
+                         " 'disaster_degree' varchar(10)    ,"+
+                         " 'disaster_area' integer   ,"+
+                         " 'remark' varchar(255)    ,"+
+                         " 'pictures' varchar(255)  ,"+
+                         "'updatetime' datetime "+")";   
+                               exeSql(1,create_table,function(data){
+                                 if(data==true){//不存在
+                                     $toast("表创建成功",2000);
+                                     setLocVal("create_database",1); 
+                                  }
+                               });
+                }); 
+
+               
+             }
         })
-        
+        appcan.button(".uh-oa3", "btn-act", function(a,b) {
+            var btn =  $(a.currentTarget);
+            var btn_id = btn.attr('id');
+            appcan.locStorage.remove("updateID");
+            if(btn_id){
+                
+                appcan.window.open(btn_id,btn_id+'.html',10);
+            }
+            
+        })
     </script>
 </html>

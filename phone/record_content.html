@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="record_content/css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver">
+            <!--选项卡开始-->
+            <div class="ub bc-border ubb ubt ulev0" id="tabview"></div>
+            <!--选项卡结束-->
+            <form id="form_disaster" name="creator">
+            <div class="ub ub-ver ub-f1">
+                <div class="uinn-a7">
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1">
+                           受灾地区省
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                 
+                                    <div class="select uba bc-border bc-text">
+                                      <div class="text" id="text_province">
+                                                                                                                      请选择
+                                      </div>
+                                      <div class="icon"></div>
+                                      <select name="province" onChange = "select()" id="province">
+                                          <option value=0>选项一</option>
+                                      </select>
+                                    </div>
+                                 
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1">
+                           市
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">                           
+                                <div class="select uba bc-border bc-text">
+                                  <div class="text" id="text_city">
+                                                                                                                请选择
+                                  </div>
+                                  <div class="icon"></div>
+                                  <select name="city" onChange = "select()" id="city">
+                                      <option value=0>选项一</option>
+                                  </select>
+                                </div>  
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+                    
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1">
+                                                                               详细地址
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                <input placeholder="请输入内容" type="text" class="tx-r " id="disaster_place">
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1" id="text_location">
+                           经纬度
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="locationFun();">更新坐标</div>
+                                <input  type="hidden" class="tx-r " id="longitude">
+                                <input  type="hidden" class="tx-r " id="latitude">
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1">
+                            受灾作物
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                <input placeholder="请输入内容" type="text" class="tx-r " id="disaster_crop">
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1">
+                            受灾类型
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                
+                                 <div class="select uba bc-border bc-text">
+                                  <div class="text" id="text_type">
+                                      旱灾
+                                  </div>
+                                  <div class="icon"></div>
+                                  <select name="disaster_type"  id="disaster_type">
+                                      <option value="旱灾">旱灾</option>
+                                      <option value="洪涝">洪涝</option>
+                                      <option value="霜冻">霜冻</option>
+                                      <option value="冰雹">冰雹</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ut-s ulev-app1">
+                            受灾程度
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                
+                                 <div class="select uba bc-border bc-text">
+                                  <div class="text" id="text_degree">
+                                      严重
+                                  </div>
+                                  <div class="icon"></div>
+                                  <select name="disaster_degree"  id="disaster_degree">
+                                      <option value="严重">严重</option>
+                                      <option value="中等">中等</option>
+                                      <option value="一般">一般</option>
+                                      <option value="轻微">轻微</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ulev-app1">
+                            受灾面积
+                        </li>
+                        <li class="tx-r ub-f1 t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                <input placeholder="请输入内容" type="text" class="tx-r " id="disaster_area">
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ulev-app1">
+                            备注
+                        </li>
+                        <li class="tx-r ub-f1 t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                <input placeholder="请输入内容" type="text" class="tx-r " id="remark">
+                            </div>
+                        </li>
+                    </ul>
+                  <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="tx-r t-blu ulev-app1 ub-ae" style="margin-right: 20px;">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="save();">保存</div>
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="reset();">重填</div>
+                        </li>
+                    </ul>
+                    
+                   
+                    
+            <input type="hidden"  id="pictures" value="">         
+            <div class="ub umar-t-ec3 ">
+                <div class="ub-img uwh-bg imgBg umar-r-ect" id="pic1" onclick="getpic();"></div>
+                <div class="uinn3" id="imgs" style="width: 70%;">
+                   <div></div>
+               </div>
+            </div>                 
+            </div>
+                
+   
+            </div>
+            </form>
+            
+             
+        
+        
+        </div>
+        <script src="js/config.js"></script>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.tab.js"></script>
+        <script src="js/common.js"></script>
+        <script src="js/img_upload.js"></script>
+    </body>
+<script language="javascript">
+<!--
+var where = new Array(35);
+function comefrom(loca,locacity) { this.loca = loca; this.locacity = locacity; }
+where[0]= new comefrom("请选择省份名","请选择城市名");
+where[1] = new comefrom("北京","|东城|西城|崇文|宣武|朝阳|丰台|石景山|海淀|门头沟|房山|通州|顺义|昌平|大兴|平谷|怀柔|密云|延庆");  //欢迎来到站长特效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，本站收集大量高质量js代码，还有许多广告代码下载。
+where[2] = new comefrom("上海","|黄浦|卢湾|徐汇|长宁|静安|普陀|闸北|虹口|杨浦|闵行|宝山|嘉定|浦东|金山|松江|青浦|南汇|奉贤|崇明");//欢迎来到站长特效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，本站收集大量高质量js代码，还有许多广告代码下载。
+where[3] = new comefrom("天津","|和平|东丽|河东|西青|河西|津南|南开|北辰|河北|武清|红挢|塘沽|汉沽|大港|宁河|静海|宝坻|蓟县");
+where[4] = new comefrom("重庆","|万州|涪陵|渝中|大渡口|江北|沙坪坝|九龙坡|南岸|北碚|万盛|双挢|渝北|巴南|黔江|长寿|綦江|潼南|铜梁|大足|荣昌|壁山|梁平|城口|丰都|垫江|武隆|忠县|开县|云阳|奉节|巫山|巫溪|石柱|秀山|酉阳|彭水|江津|合川|永川|南川");
+where[5] = new comefrom("河北","|石家庄|邯郸|邢台|保定|张家口|承德|廊坊|唐山|秦皇岛|沧州|衡水");
+where[6] = new comefrom("山西","|太原|大同|阳泉|长治|晋城|朔州|吕梁|忻州|晋中|临汾|运城");
+where[7] = new comefrom("内蒙古","|呼和浩特|包头|乌海|赤峰|呼伦贝尔盟|阿拉善盟|哲里木盟|兴安盟|乌兰察布盟|锡林郭勒盟|巴彦淖尔盟|伊克昭盟");
+where[8] = new comefrom("辽宁","|沈阳|大连|鞍山|抚顺|本溪|丹东|锦州|营口|阜新|辽阳|盘锦|铁岭|朝阳|葫芦岛");
+where[9] = new comefrom("吉林","|长春|吉林|四平|辽源|通化|白山|松原|白城|延边");
+where[10] = new comefrom("黑龙江","|哈尔滨|齐齐哈尔|牡丹江|佳木斯|大庆|绥化|鹤岗|鸡西|黑河|双鸭山|伊春|七台河|大兴安岭");
+where[11] = new comefrom("江苏","|南京|镇江|苏州|南通|扬州|盐城|徐州|连云港|常州|无锡|宿迁|泰州|淮安");
+where[12] = new comefrom("浙江","|杭州|宁波|温州|嘉兴|湖州|绍兴|金华|衢州|舟山|台州|丽水");
+where[13] = new comefrom("安徽","|合肥|芜湖|蚌埠|马鞍山|淮北|铜陵|安庆|黄山|滁州|宿州|池州|淮南|巢湖|阜阳|六安|宣城|亳州");
+where[14] = new comefrom("福建","|福州|厦门|莆田|三明|泉州|漳州|南平|龙岩|宁德");
+where[15] = new comefrom("江西","|南昌市|景德镇|九江|鹰潭|萍乡|新馀|赣州|吉安|宜春|抚州|上饶");
+where[16] = new comefrom("山东","|济南|青岛|淄博|枣庄|东营|烟台|潍坊|济宁|泰安|威海|日照|莱芜|临沂|德州|聊城|滨州|菏泽");
+where[17] = new comefrom("河南","|郑州|开封|洛阳|平顶山|安阳|鹤壁|新乡|焦作|濮阳|许昌|漯河|三门峡|南阳|商丘|信阳|周口|驻马店|济源");
+where[18] = new comefrom("湖北","|武汉|宜昌|荆州|襄樊|黄石|荆门|黄冈|十堰|恩施|潜江|天门|仙桃|随州|咸宁|孝感|鄂州");
+where[19] = new comefrom("湖南","|长沙|常德|株洲|湘潭|衡阳|岳阳|邵阳|益阳|娄底|怀化|郴州|永州|湘西|张家界");
+where[20] = new comefrom("广东","|广州|深圳|珠海|汕头|东莞|中山|佛山|韶关|江门|湛江|茂名|肇庆|惠州|梅州|汕尾|河源|阳江|清远|潮州|揭阳|云浮");
+where[21] = new comefrom("广西","|南宁|柳州|桂林|梧州|北海|防城港|钦州|贵港|玉林|南宁地区|柳州地区|贺州|百色|河池");
+where[22] = new comefrom("海南","|海口|三亚");
+where[23] = new comefrom("四川","|成都|绵阳|德阳|自贡|攀枝花|广元|内江|乐山|南充|宜宾|广安|达川|雅安|眉山|甘孜|凉山|泸州");
+where[24] = new comefrom("贵州","|贵阳|六盘水|遵义|安顺|铜仁|黔西南|毕节|黔东南|黔南");
+where[25] = new comefrom("云南","|昆明|大理|曲靖|玉溪|昭通|楚雄|红河|文山|思茅|西双版纳|保山|德宏|丽江|怒江|迪庆|临沧");
+where[26] = new comefrom("西藏","|拉萨|日喀则|山南|林芝|昌都|阿里|那曲");
+where[27] = new comefrom("陕西","|西安|宝鸡|咸阳|铜川|渭南|延安|榆林|汉中|安康|商洛");
+where[28] = new comefrom("甘肃","|兰州|嘉峪关|金昌|白银|天水|酒泉|张掖|武威|定西|陇南|平凉|庆阳|临夏|甘南");
+where[29] = new comefrom("宁夏","|银川|石嘴山|吴忠|固原");
+where[30] = new comefrom("青海","|西宁|海东|海南|海北|黄南|玉树|果洛|海西");
+where[31] = new comefrom("新疆","|乌鲁木齐|石河子|克拉玛依|伊犁|巴音郭勒|昌吉|克孜勒苏柯尔克孜|博尔塔拉|吐鲁番|哈密|喀什|和田|阿克苏");
+where[32] = new comefrom("香港","");
+where[33] = new comefrom("澳门","");
+where[34] = new comefrom("台湾","|台北|高雄|台中|台南|屏东|南投|云林|新竹|彰化|苗栗|嘉义|花莲|桃园|宜兰|基隆|台东|金门|马祖|澎湖");
+where[35] = new comefrom("其它","|北美洲|南美洲|亚洲|非洲|欧洲|大洋洲");
+function select() {
+with(document.creator.province) { var loca2 = options[selectedIndex].value; }
+for(i = 0;i < where.length;i ++) {
+if (where[i].loca == loca2) {
+loca3 = (where[i].locacity).split("|");
+for(j = 0;j < loca3.length;j++) { with(document.creator.city) { length = loca3.length; options[j].text = loca3[j]; options[j].value = loca3[j]; var loca4=options[selectedIndex].value;}}
+break;
+}}
+//document.creator.newlocation.value=loca2+loca4;
+} //
+function init() {
+with(document.creator.province) {
+length = where.length;
+for(k=0;k<where.length;k++) { options[k].text = where[k].loca; options[k].value = where[k].loca; }
+options[selectedIndex].text = where[0].loca; options[selectedIndex].value = where[0].loca;
+}
+with(document.creator.city) {
+loca3 = (where[0].locacity).split("|");
+length = loca3.length;
+for(l=0;l<length;l++) { options[l].text = loca3[l]; options[l].value = loca3[l]; }
+options[selectedIndex].text = loca3[0]; options[selectedIndex].value = loca3[0];
+}} //
+
+init();
+-->
+</script>    
+    
+    <script>
+
+       // var insert_sql="INSERT INTO 'sp_agro_infos' ('disaster_place', 'disaster_crop', 'disaster_degree', 'disaster_area', 'remark', 'pictures','updatetime') VALUES('1',    '1',    '1',    1,  '1','1',datetime('now'))";
+
+        appcan.ready(function() {
+            appcan.initBounce();
+
+            
+/*
+           exeSql(1,"DROP TABLE sp_agro_infos",function(data){
+                       if(data==true)
+                          $toast("delete",2000);
+             }); */
+          
+/*
+          selSql(1,"select count(*) from sp_agro_infos",function(data) {
+             alert(data);
+          }); */
+ 
+        /*
+              exeSql(1,create_table,function(data){
+                alert(data);
+            });
+            exeSql(1,insert_sql,function(data){
+                 alert(data);
+             });*/
+
+
+
+
+/*
+        selSql(1,"select * from sp_agro_infos",function(data) {
+           alert(data);
+        });*/
+
+
+
+
+            uexLocation.onChange = onChange;
+            uexLocation.cbOpenLocation = cbOpenLocation;
+            locationFun();  
+        })
+        
+        appcan.select(".select",function(ele,value){
+            //alert(value);
+            //console.log(value);
+        });
+        
+        var tabview = appcan.tab({
+            selector : "#tabview",
+            hasIcon : false,
+            hasAnim : true,
+            hasLabel : true,
+            hasBadge : false,
+            data : [{
+                label : "预先准备",
+            }, {
+                label : "计算面积",
+            }]
+        });
+        tabview.on("click", function(obj, index) {
+        })
+        
+
+        
+
+
+        //console.log(JSON.stringify(get_form_object("form_disaster")));
+        function save(){
+            //图片保存
+            pictures=json2str(ImgObj);
+            setValue("pictures",pictures);
+
+            var j=get_form_object("form_disaster");
+            //alert(JSON.stringify(j));
+            setStorJson("form_disaster",j);
+            $toast("已经缓存到本地",2000);
+
+            sql="INSERT INTO 'sp_agro_infos' "+
+            "('province','city','disaster_place','longitude','latitude','disaster_crop','disaster_type','disaster_degree', 'disaster_area', 'remark', 'pictures','updatetime')"+
+            "VALUES('"+j.province+"','"+j.city+"','"+j.disaster_place+"','"+j.longitude+"','"+j.latitude+"','"+j.disaster_crop+
+            "','"+j.disaster_type+"','"+j.disaster_degree+"','"+j.disaster_area+"','"+j.remark+"','"+j.pictures+"',datetime('now'))";
+            //alert(insert_sql);
+
+            if(isDefine(getLocVal("updateID"))){
+                sql="UPDATE sp_agro_infos SET province = '"+j.province+"', city = '"+j.city+"',disaster_place = '"+
+                j.disaster_place+"',longitude = '"+j.longitude+"',latitude = '"+j.latitude+"',disaster_crop = '"+j.disaster_crop+
+                "',disaster_type = '"+j.disaster_type+"',disaster_degree = '"+j.disaster_degree+"',disaster_area = '"+j.disaster_area+
+                "',remark = '"+j.remark+"',pictures = '"+j.pictures+"',updatetime = datetime('now') WHERE id ="+getLocVal("updateID");
+            }
+
+            openDB(function(){
+               exeSql(1,sql,function(data){
+                if(data){
+                   $toast("保存到本地数据库成功!",2000);
+  
+                  appcan.frame.evaluateScript({
+                        name:'manage',
+                        popName:'content',  
+                        scriptContent:'loadList();'
+                   });}
+                else{
+                   $toast("保存到本地数据库失败!",2000); 
+                }
+             });
+            });
+
+
+
+        }
+
+
+
+        function cbOpenLocation(opId, dataType, data){
+            if(data==0)
+              $toast("定位功能已经打开",2000);
+              
+            else{
+              $toast("定位功能已经打开失败，请授权或重试",2000);
+            }
+           //alert(opId + "," + dataType + "," + data);
+        }
+        function onChange(lat, log){
+            $toast("坐标已经获取...",2000);
+            document.getElementById('longitude').value = log;
+            document.getElementById('latitude').value = lat;
+            setHtml("text_location",log + "，" +lat);
+            
+        }
+/*
+        window.uexOnload = function(){
+            uexLocation.onChange = onChange;
+            uexLocation.cbOpenLocation = cbOpenLocation;
+            locationFun();
+        }*/
+
+        function locationFun(){
+            uexLocation.openLocation();
+        }
+
+
+ /***上传图片**/
+var myUpload=null;
+var ImgObj={};
+function getpic(){
+    //alert(uploadHttp);
+    if(!myUpload) myUpload = new disUpload(uploadHttp, actCb, susCb);
+    myUpload.upSelect();
+}
+
+function actCb(val){
+    isok = val;
+}
+function susCb(val, f){
+    addimgpreview(val);
+    if(myUpload) ImgObj[val] = myUpload.src;
+}
+
+function addimgpreview(val){
+    var src="";
+    if(myUpload) src=myUpload.src;
+    else src=ImgObj[val];
+    
+    var node = document.createElement("span");
+    node.innerHTML = '<img src="'+src+'" class="uc-a1 edpic" ontouchstart="zy_touch()" onclick="imgoperate(\''+val+'\');" id="'+val+'"/>';
+    $$("imgs").insertBefore(node, $$("imgs").lastElementChild);
+}
+
+
+function imgoperate(id){
+    var eleimg = $$(id);
+    uexWindow.cbActionSheet = function(opId, dataType, data)
+    {
+        if (data == "0") {
+            var id2 = eleimg.id;
+            removeNode(id2);
+            delete ImgObj[id2];
+
+        } else if (data == "1") {
+            var array = [];
+            array[0] = eleimg.src;
+            uexImageBrowser.open(array);
+        }
+    }
+    
+    var value = ["删除","预览"];
+    uexWindow.actionSheet('', '取消', value);
+}  
+
+
+
+        readCache();
+        function readCache(){
+            var form_disaster=getStorJson("form_disaster");
+            if(isDefine(form_disaster.province)){
+                setValue("province",form_disaster.province);
+                $$("text_province").innerHTML=form_disaster.province;
+                select();
+                setValue("city",form_disaster.city);
+                $$("text_city").innerHTML=form_disaster.city;
+                setValue("disaster_place",form_disaster.disaster_place);
+                setValue("disaster_crop",form_disaster.disaster_crop);
+                setValue("disaster_type",form_disaster.disaster_type);
+                $$("text_type").innerHTML=form_disaster.disaster_type;
+                
+                setValue("disaster_degree",form_disaster.disaster_degree);
+                $$("text_degree").innerHTML=form_disaster.disaster_degree;
+                setValue("disaster_area",form_disaster.disaster_area);
+                setValue("remark",form_disaster.remark);
+                setValue("pictures",form_disaster.pictures);
+                //alert(form_disaster.pictures);
+                
+                ImgObj=str2json(form_disaster.pictures);
+                for(key in ImgObj){
+                    //addimgpreview(key);
+                    addimgpreview(key);
+                }
+                
+            }
+        }
+     
+            function reset(){
+ 
+
+                setValue("disaster_place","");
+                setValue("disaster_crop","");
+                
+                setValue("disaster_area","");
+                setValue("remark","");
+                setValue("pictures","");
+                //alert(form_disaster.pictures);
+                
+                ImgObj={};
+                $$("imgs").innerHTML="<div></div>";
+
+        } 
+     
+    </script>
+    
+ 
+</html>

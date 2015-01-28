@@ -1,0 +1,35 @@
+.t-btn-oah{
+	background-image:url('myImg/t-btn-oah.png');
+}
+
+
+.oa1{
+    background-image:url('myImg/oa1.png');
+}
+.oa2{
+    background-image:url('myImg/oa2.png');
+}
+.oa3{
+    background-image:url('myImg/oa3.png');
+}
+.uw-oa{
+    width:4.875em;
+}
+.ulev-oa{
+    font-size:1.125em;
+}
+.c-blu-218{
+    background-color:rgba(33,141,213,0.5);
+}
+.c-red-d0{
+    background-color:rgba(208,23,23,0.5);
+}
+.c-org-c2{
+    background-color:rgba(194,140,11,0.5);
+}
+.uw-oa2{
+    width:1.2em;
+}
+.uh-oa3{
+    height:33.33%;
+}

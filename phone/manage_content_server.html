@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="manage_content/css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver">
+            <div class="ub ub-ver">
+                <div class="ub c-gra1 uinn-a7 ub-ac">
+                    <div class="uinn-SC ub-f1" id="listview">
+
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/appcan.listview.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/map.js"></script>
+    <script>
+        var list_data=[];
+        var curpage=0;
+        var totpage=100;
+        appcan.ready(function() {
+            appcan.initBounce();
+            setPageBounce(1,downcb, upcb);
+            loadList(1,true);
+        
+        });
+        var lv1 = appcan.listview({
+            selector : "#listview",
+            type : "thinLineTmp",
+            hasIcon : false,
+            hasAngle : true,
+            hasSubTitle : true,
+            multiLine : 1,
+            hasTouchEffect:false,
+            hasCheckbox : true,
+            align : 'left'
+        });
+        
+
+function downcb(){
+    loadList(1,false);
+    curpage=0;
+
+}
+function upcb(){
+    if (curpage < totpage) {
+        loadList(curpage + 1,false);
+    }
+    else resetBV('1');
+}
+
+var cache=false;
+var updated;
+var url="";
+function loadList(pn,c){
+    $toast("加载中...");
+    cache=c;
+    url=client_http+"&a=queryAgroInfosList&page="+pn;
+    updated = checkKey(client_http+"&a=queryAgroInfosList&page="+pn); 
+    if(!updated||!cache){
+        appcan.request.ajax({
+              type: 'GET',
+              url: url,
+              //添加参数
+              data: {},
+              //期望的返回类型
+              dataType: 'json',
+              success: getJsonCallback,
+              error: function(xhr, type){
+                alert('Ajax error!')
+              },
+              cache:cache
+        });
+    }else{
+       $toast("从缓存中读取数据...");
+       getJsonCallback(getStorJson(url)); 
+    }
+}
+
+function getJsonCallback(json){
+    $closeToast();
+    resetBV('0');
+    resetBV('1');
+    
+    if (json) {
+        if (json.status<1) {
+                uexWindow.toast('0','5',json.info,2000);
+                //return;
+        }
+         
+         totpage=json.data.totalpage;
+         var list_tmp= json.data.AgroInfos_list;
+   
+         if(isDefine(list_tmp)){
+             curpage=curpage+1;
+             
+             if((cache&&!updated)||(!cache&&updated)){
+                 setStorJson(url,json);
+             }
+             
+             
+             list_data = list_data.concat(list_tmp);
+               for(index in list_tmp){
+                   list_tmp[index].title=list_tmp[index].id+". "+list_tmp[index].province+list_tmp[index].city+list_tmp[index].disaster_place;
+                   list_tmp[index].describe="作物:"+list_tmp[index].disaster_crop+",采集时间:"+list_tmp[index].updatetime;
+                   //alert(list_tmp[index].title);
+               }
+               if(curpage==1)
+                 lv1.set(list_tmp);
+               else{
+                     lv1.add(list_tmp);
+               }
+               
+         }else{
+             if(curpage==0){
+                 list_data=[];
+                 clearLocVal(url);
+                 setHtml("listview","暂无数据");
+             }
+         }
+    }
+}
+   
+    function clearAll(){
+            appcan.window.alert({
+                  title : "提示",
+                  content : "您是否要清空服务器数据?",
+                  buttons : ['确定', '取消'],
+                  callback : function(err, data, dataType, optId) {
+                       if(data==0){
+                           $toast("删除中...");
+                           appcan.request.getJSON(client_http+"&a=deleteAgroInfo",{},function(data, status, xhr){
+                                //数据内容
+                               if(data.status){//不存在
+                                 $toast("清空成功",2000);
+                                 list_data=[];
+                                 downcb();
+                               }else{
+                                   $toast("清空失败",2000);
+                               }
+                            });
+                           
+                       }
+                      
+                  }
+            });
+
+    }
+   
+        var checked=new Map();
+        var checkedObj={};
+        lv1.on("checkbox:change",function(o,d){
+            if(d.checked){
+               checked.put(d.id,true);
+               checkedObj[d.id]=d;
+             }
+             else{
+                checked.remove(d.id); 
+                delete checkedObj[d.id];
+             }
+             
+             //alert(json2str(checkedObj));
+            
+        });
+        
+        
+/*
+        lv1.on("click",function(o,d,s){
+            if(s[0].nodeName!="INPUT"){//涓嶆槸鐐瑰嚮鐨刢heckbox 璺宠浆鍒扮紪杈戦〉闈�
+                 setStorJson("form_disaster",d);
+                 appcan.window.open("record",'record.html',10);
+            }
+            
+        })*/
+
+        
+        
+        
+    function deleteSelect(){
+        var keys=checked.keys();
+        if(keys.length==0){
+            $toast("请选择",2000);
+            return;
+        }
+       keystr=keys.join(","); 
+       $alert("是否删除所选",function(){
+                           $toast("删除中...");
+                           appcan.request.getJSON(client_http+"&a=deleteAgroInfo",{ids:keystr},function(data, status, xhr){
+                                //数据内容
+                               if(data.status){//
+                                 $toast("删除成功",2000);
+                                 downcb();
+                               }
+                               $closeToast();
+                            });
+       });
+        
+    }
+       
+   
+    
+    </script>
+</html>

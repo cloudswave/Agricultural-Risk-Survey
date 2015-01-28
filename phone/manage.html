@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">本地数据管理</h1>
+                 <div class="nav-btn" id="nav-right">
+                   <div class="icon-submenu ub-img umh4 umw2"></div>
+                 </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+            <div class="uinn3 ub">
+                <div  onclick="deleteSelect();" class="ub-f1 uinn uba b-a8 umar-a c-f7 t-wh uc-a8 ub ub-ac ub-pc" style="min-width:7em;">    
+                                                         删除所选
+                </div>
+  
+                <div  onclick="uploadData();" class="ub-f1 uinn uba b-a8 umar-a c-f7 t-wh uc-a8 ub ub-ac ub-pc" style="min-width:7em;">    
+                                                         上传所选
+                </div>
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "manage_content.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            }
+        });
+        appcan.button(".nav-btn", "btn-act", function(a,b) {
+            var btn =  $(a.currentTarget);
+            var btn_id = btn.attr('id');
+            
+            if(btn_id == 'nav-left'){
+                appcan.window.close(-1);            
+            }else{
+               openPop();
+            }
+        });
+        
+var sta = 0;
+function openPop(){
+    if(sta == 0){
+        var s=$("#content");
+        var x = 0;
+        var y = parseInt(s.css("font-size"))*2;
+        appcan.openPopoverByEle("content","manage_pop.html",parseInt(x),parseInt(y),0,"manage_pop");
+        sta = 1;
+    }else{
+        closePop();
+    }
+}
+
+function closePop(){
+    appcan.closePopover('manage_pop');
+    sta = 0;
+}
+
+function deleteSelect(){
+    appcan.frame.evaluateScript({
+    name:'manage',
+    popName:'content',  
+    scriptContent:'deleteSelect()'
+   });
+}
+
+function uploadData(){
+    appcan.frame.evaluateScript({
+    name:'manage',
+    popName:'content',  
+    scriptContent:'uploadData(0)'
+   });
+}
+
+    </script>
+</html>
