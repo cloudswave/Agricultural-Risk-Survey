@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="manage_content/css/setting.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver">
+            <form id="form_setting" name="creator">
+             <div class="ub ub-ver uinn-a7">
+
+            <div class="ub ub-ver umar-at1">
+                <div class="ulev-app1 uinn8">
+                                                          服务器数据上传接口(如:http://aaa.com/bbb)
+                </div>
+                <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac">
+                    <div class="ub ub-ac umh5 ub-f1">
+                        <div class="uinput ub ub-f1">
+                            <input placeholder="" type="text" class="ub-f1" id="server_http" value="http://php.xlanlab.com/sxzy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                  <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="tx-r t-blu ulev-app1 ub-ae" style="margin-right: 20px;">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="save();">保存</div>
+                        </li>
+                        <li class="tx-r t-blu ulev-app1 ub-ae">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="connect_test();">连接测试</div>
+                        </li>
+                    </ul>
+                                 
+                </div>
+            </form>
+        </div>
+        
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.tab.js"></script>
+        <script src="js/common.js"></script>
+        <script src="js/img_upload.js"></script>
+        <script src="js/config.js"></script>
+    </body>
+   
+    <script>
+
+       // var insert_sql="INSERT INTO 'sp_agro_infos' ('disaster_place', 'disaster_crop', 'disaster_degree', 'disaster_area', 'remark', 'pictures','updatetime') VALUES('1',    '1',    '1',    1,  '1','1',datetime('now'))";
+
+        appcan.ready(function() {
+            appcan.initBounce(); 
+        })
+        
+
+        //console.log(JSON.stringify(get_form_object("form_disaster")));
+        function save(){
+            //图片保存
+            var j=get_form_object("form_setting");
+            //alert(JSON.stringify(j));
+            setStorJson("form_setting",j);
+            $toast("保存成功!",2000);
+        }
+        
+        function connect_test(){
+
+            
+            
+            if(getValue("server_http")!=""){
+                           var url=getValue("server_http")+"/index.php?g=agro&m=client&a=connectTest";
+                           $toast("正在尝试连接...");
+                           appcan.request.ajax({
+                                 type: 'GET',
+                                 url: url,
+                                 data: {},
+                                 dataType: 'json',
+                                 success: function(data, status, xhr){
+                                     if (data) {
+                                           $toast(data.info,2000);
+                                      }else{
+                                          $toast("连接失败...",2000);
+                                      }
+                                      //$closeToast();
+                                 },
+                                 error: function(xhr, errorType, error){
+                                   alert(json2str(error));
+                                 }
+                           });     
+            }else{
+               $toast("请输入服务器数据上传接口...",2000); 
+            }
+           
+        }
+           
+
+
+
+        (function readCache(){
+            if(isDefine(form_setting.server_http)){
+                setValue("server_http",form_setting.server_http); 
+            }
+        })();
+
+     
+        function reset(){
+                setValue("server_http","");
+        } 
+     
+    </script>
+    
+ 
+</html>

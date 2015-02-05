@@ -142,6 +142,16 @@
                     </ul>
                     <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
                         <li class="ub-f1 ulev-app1">
+                            受灾成数
+                        </li>
+                        <li class="tx-r ub-f1 t-blu ulev-app1 ub-ae">
+                            <div class="uinput uinn4">
+                                <input placeholder="请输入内容" type="text" class="tx-r " id="disaster_ratio">
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  class=" ubb ub bc-border bc-text ub-ac uinn">
+                        <li class="ub-f1 ulev-app1">
                             受灾面积
                         </li>
                         <li class="tx-r ub-f1 t-blu ulev-app1 ub-ae">
@@ -188,11 +198,12 @@
         
         
         </div>
-        <script src="js/config.js"></script>
+        
         <script src="js/appcan.js"></script>
         <script src="js/appcan.control.js"></script>
         <script src="js/appcan.tab.js"></script>
         <script src="js/common.js"></script>
+        <script src="js/config.js"></script>
         <script src="js/img_upload.js"></script>
     </body>
 <script language="javascript">
@@ -339,17 +350,17 @@ init();
             //alert(JSON.stringify(j));
             setStorJson("form_disaster",j);
             $toast("已经缓存到本地",2000);
-
+           
             sql="INSERT INTO 'sp_agro_infos' "+
-            "('province','city','disaster_place','longitude','latitude','disaster_crop','disaster_type','disaster_degree', 'disaster_area', 'remark', 'pictures','updatetime')"+
+            "('province','city','disaster_place','longitude','latitude','disaster_crop','disaster_type','disaster_degree','disaster_ratio', 'disaster_area', 'remark', 'pictures','updatetime')"+
             "VALUES('"+j.province+"','"+j.city+"','"+j.disaster_place+"','"+j.longitude+"','"+j.latitude+"','"+j.disaster_crop+
-            "','"+j.disaster_type+"','"+j.disaster_degree+"','"+j.disaster_area+"','"+j.remark+"','"+j.pictures+"',datetime('now'))";
-            //alert(insert_sql);
+            "','"+j.disaster_type+"','"+j.disaster_degree+"','"+j.disaster_ratio+"','"+j.disaster_area+"','"+j.remark+"','"+j.pictures+"',datetime('now'))";
+            //alert(sql);
 
             if(isDefine(getLocVal("updateID"))){
                 sql="UPDATE sp_agro_infos SET province = '"+j.province+"', city = '"+j.city+"',disaster_place = '"+
                 j.disaster_place+"',longitude = '"+j.longitude+"',latitude = '"+j.latitude+"',disaster_crop = '"+j.disaster_crop+
-                "',disaster_type = '"+j.disaster_type+"',disaster_degree = '"+j.disaster_degree+"',disaster_area = '"+j.disaster_area+
+                "',disaster_type = '"+j.disaster_type+"',disaster_degree = '"+j.disaster_degree+"',disaster_ratio = '"+j.disaster_ratio+"',disaster_area = '"+j.disaster_area+
                 "',remark = '"+j.remark+"',pictures = '"+j.pictures+"',updatetime = datetime('now') WHERE id ="+getLocVal("updateID");
             }
 
@@ -407,7 +418,6 @@ init();
 var myUpload=null;
 var ImgObj={};
 function getpic(){
-    //alert(uploadHttp);
     if(!myUpload) myUpload = new disUpload(uploadHttp, actCb, susCb);
     myUpload.upSelect();
 }
@@ -470,6 +480,7 @@ function imgoperate(id){
                 setValue("disaster_degree",form_disaster.disaster_degree);
                 $$("text_degree").innerHTML=form_disaster.disaster_degree;
                 setValue("disaster_area",form_disaster.disaster_area);
+                setValue("disaster_ratio",form_disaster.disaster_ratio);
                 setValue("remark",form_disaster.remark);
                 setValue("pictures",form_disaster.pictures);
                 //alert(form_disaster.pictures);
@@ -489,6 +500,7 @@ function imgoperate(id){
                 setValue("disaster_place","");
                 setValue("disaster_crop","");
                 
+                setValue("disaster_ratio","");
                 setValue("disaster_area","");
                 setValue("remark","");
                 setValue("pictures","");

@@ -27,8 +27,8 @@
     <script src="js/appcan.js"></script>
     <script src="js/appcan.control.js"></script>
     <script src="js/appcan.listview.js"></script>
-    <script src="js/config.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/map.js"></script>
     <script>
         var list_data;
@@ -164,7 +164,7 @@
         $alert("是否上传数据到服务器？",function(){
            
            for(key in list){
-              //alert(json2str(checkedObj[key])); 
+                //alert(json2str(checkedObj[key])); 
                 $toast("正在上传...");
                 appcan.request.post(client_http+"&a=addAgroInfos",list[key],function(data, status, xhr){
                     //打印结果
