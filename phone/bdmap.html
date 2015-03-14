@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+        #golist {display: none;}
+        @media (max-device-width: 780px){#golist{display: block !important;}}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=aFqCPtpojVHT0Rq3q1IoENx2&v=1.0"></script>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/common.js"></script>
+    <title>添加普通标注点</title>
+</head>
+<body>
+    <div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point=new BMap.Point(116.384, 39.925);
+    map.centerAndZoom(point, 18);
+    map.addControl(new BMap.ZoomControl());  //添加地图缩放控件
+   
+
+    function cbOpenLocation(opId, dataType, data){
+        $toast("正在定位...",2000);
+    }
+    function onChange(lat, log){//http://api.map.baidu.com/geoconv/v1/?coords=114.21892734521,29.575429778924&from=1&to=5&ak=aFqCPtpojVHT0Rq3q1IoENx2
+        $toast("坐标已经获取:"+lat+","+log,2000);
+        point=new BMap.Point(log, lat);
+        map.panTo(point);
+        var marker1 = new BMap.Marker(point);  //创建标注
+        map.addOverlay(marker1);                 // 将标注添加到地图中
+         //创建信息窗口
+        var infoWindow1 = new BMap.InfoWindow("<a onclick='alert(\"添加\")'>添加</a>");
+        marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+        
+        //创建信息窗口
+        //infoWindow1 = new BMap.InfoWindow("普通标注",true,true);
+        //marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+        
+/*
+        appcan.request.getJSON('http://api.map.baidu.com/geoconv/v1/?coords='+log+','+lat+'&from=1&to=5&ak=aFqCPtpojVHT0Rq3q1IoENx2',function(data){
+         console.log(data);
+         if(data.status==0){
+                console.log(data);
+                map.centerAndZoom(new BMap.Point(log, lat), 14);
+                map.clearOverlays();
+                var marker1 = new BMap.Marker(new BMap.Point(log, lat));  
+                map.addOverlay(marker1);                
+                var infoWindow1 = new BMap.InfoWindow("00000",true,true);
+                marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+            }   
+    
+          });*/
+
+           
+
+
+    }
+
+        appcan.ready(function() {
+            uexLocation.onChange = onChange;
+            uexLocation.cbOpenLocation = cbOpenLocation; 
+            uexLocation.openLocation();
+        });
+</script>
+
