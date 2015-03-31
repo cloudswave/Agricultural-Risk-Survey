@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        .BMap_bubble_content{
+          font-size: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=aFqCPtpojVHT0Rq3q1IoENx2"></script>
+    <title>测距</title>
+</head>
+<body>
+    <div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    
+    var pointA = new BMap.Point(106.486654,29.490295);  // 创建点坐标A--大渡口区
+    var pointB = new BMap.Point(106.581515,29.615467);  // 创建点坐标B--江北区
+    var pointCenter = new BMap.Point((pointA.lng+pointB.lng)*0.5,(pointA.lat+pointB.lat)*0.5);
+    map.centerAndZoom(pointCenter,12);
+    
+    var markerA = new BMap.Marker(pointA);// 创建标注
+    map.addOverlay(markerA);             // 将标注添加到地图中
+    markerA.enableDragging();           // 可拖拽
+ 
+    var markerB = new BMap.Marker(pointB);// 创建标注
+    map.addOverlay(markerB);             // 将标注添加到地图中
+    markerB.enableDragging();           // 可拖拽
+    
+    
+    
+   
+   // alert('从大渡口区到江北区的距离是：'+(map.getDistance(pointA,pointB)).toFixed(2)+' 米。');  //获取两点距离,保留小数点后两位
+    var polyline = new BMap.Polyline([pointA,pointB], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
+    map.addOverlay(polyline);     //添加折线到地图上
+    //polyline.enableClicking();
+    var infoWindow = new BMap.InfoWindow("相距"+map.getDistance(pointA,pointB).toFixed(2)+"米<br>您可以拖曳点重新计算！");
+    map.openInfoWindow(infoWindow,pointCenter); //开启信息窗口
+    
+    
+    
+    
+    markerA.addEventListener("dragend",function(){calculate();});
+    markerB.addEventListener("dragend",function(){calculate();});
+    markerA.addEventListener("click",function(){map.openInfoWindow(infoWindow,pointCenter); });
+    markerB.addEventListener("click",function(){map.openInfoWindow(infoWindow,pointCenter); });
+    //document.getElementById("r-result").innerHTML = "信息窗口的内容是：<br />" + infoWindow.getContent();
+function calculate(){
+    pointA=markerA.getPosition();
+    pointB=markerB.getPosition();
+    pointCenter = new BMap.Point((pointA.lng+pointB.lng)*0.5,(pointA.lat+pointB.lat)*0.5);
+    map.centerAndZoom(pointCenter,12);
+    polyline.setPositionAt(0,pointA);
+    polyline.setPositionAt(1,pointB);
+    infoWindow.setContent("相距"+map.getDistance(pointA,pointB).toFixed(2)+"米<br>您可以拖曳点重新计算！");
+    map.openInfoWindow(infoWindow,pointCenter); //开启信息窗口
+}
+</script>
